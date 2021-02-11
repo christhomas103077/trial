@@ -1,0 +1,91 @@
+import java.util.Scanner; 
+public class DLL_Node { 
+char data; 
+DLL_Node l_link; 
+DLL_Node r_link; 
+public static void create(DLL_Node head) { 
+Scanner in=new Scanner(System.in); 
+DLL_Node temp=new DLL_Node(); 
+DLL_Node ptr=new DLL_Node(); 
+if(head.data==0){ 
+System.out.print("Enter Data: "); 
+head.data=in.next().charAt(0); 
+head.l_link=null; 
+head.r_link=null; 
+return; 
+} 
+ptr=head; 
+while(ptr.r_link != null) 
+ptr=ptr.r_link; 
+System.out.print("Enter Data: "); 
+temp.data=in.next().charAt(0); 
+temp.l_link=ptr; 
+ptr.r_link=temp; 
+temp.r_link=null; 
+} 
+public static void delete(DLL_Node head) { 
+char del; 
+DLL_Node ptr=new DLL_Node(); 
+ptr=head; 
+Scanner in=new Scanner(System.in); 
+System.out.print("Enter data to be deleted: "); 
+del=in.next().charAt(0); 
+while(ptr.data!=del && ptr.r_link != null ) 
+ptr=ptr.r_link; 
+if(ptr.data==del) { 
+ptr.l_link.r_link=ptr.r_link; 
+ptr.r_link.l_link=ptr.l_link; 
+}else 
+System.out.print("Data not Found"); 
+} 
+public static void display(DLL_Node head) { 
+DLL_Node ptr=new DLL_Node(); 
+if(head==null) { 
+System.out.println("\nThe Doubly Linked List is empty"); 
+return; 
+} 
+ptr=head; 
+System.out.print(ptr.data); 
+while(ptr.r_link != null) { 
+ptr=ptr.r_link; 
+System.out.print("<->"+ptr.data); 
+} 
+} 
+public static void main(String[] args) { 
+int choice,n,i; 
+char opt; 
+Scanner in=new Scanner(System.in); 
+DLL_Node head=new DLL_Node(); 
+head.data=0; 
+do { 
+System.out.println("1.Create Doubly Linked List"); 
+System.out.println("2.Insert a node at end"); 
+System.out.println("3.Delete a node from List"); 
+System.out.println("4.Display Doubly Linked List"); 
+System.out.println("ENTER YOUR CHOICE:"); 
+choice=in.nextInt(); 
+switch(choice) { 
+case 1: 
+System.out.println("Enter no of nodes to be created: "); 
+n=in.nextInt(); 
+for(i=0;i<n;i++) { 
+create(head); 
+} 
+display(head); 
+break; 
+case 2: 
+create(head); 
+break; 
+case 3: 
+delete(head);break; 
+case 4: 
+display(head); 
+break; 
+default: 
+System.out.println("\nOption not found"); 
+} 
+System.out.println("\nDo you want to continue? (y/n)"); 
+opt=in.next().charAt(0); 
+}while(opt=='y' || opt=='Y'); 
+} 
+}
